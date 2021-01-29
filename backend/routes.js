@@ -17,4 +17,45 @@ router.post("/upload/post", (req, res) => {
   });
 });
 
+// retrieve all posts
+router.get("/retrieve/posts", (req, res) => {
+  postModel.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      data.sort((a, b) => {
+        return a.timestamp - b.timestamp;
+      });
+      res.status(200).send(data);
+    }
+  });
+});
+
+//retrieve one post
+router.get(`/retrieve/post`, (req, res) => {
+  const id = req.query.id;
+
+  console.log(id);
+  postModel.findOne({ _id: id }, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+//delete one post
+router.delete(`/delete/post`, (req, res) => {
+  const id = req.query.id;
+
+  postModel.findOneAndDelete({ _id: id }, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 export default router;

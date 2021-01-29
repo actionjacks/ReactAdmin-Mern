@@ -1,10 +1,11 @@
 import React from "react";
 import "./Post.css";
 
-function Post() {
+function Post({ postTitle, postContents }) {
   return (
     <div className="post">
-      <p>post</p>
+      <h3>{postTitle}</h3>
+      <p>{postContents}</p>
     </div>
   );
 }
